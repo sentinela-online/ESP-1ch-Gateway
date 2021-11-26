@@ -87,7 +87,7 @@
 // AS923		(Not Used)
 // You can find the definitions in "loraModem.h" and frequencies in
 // See https://www.thethingsnetwork.org/docs/lorawan/frequency-plans.html
-#define EU863_870 1
+// #define EU863_870 1
  
 
 // Define the CLASS mode of the gateway
@@ -264,8 +264,8 @@
 
 // ntp
 // Please add daylight saving time to NTP_TIMEZONES when desired
-#define NTP_TIMESERVER "nl.pool.ntp.org"	// Country and region specific
-#define NTP_TIMEZONES	2					// How far is our Timezone from UTC (excl daylight saving/summer time)
+#define NTP_TIMESERVER "br.pool.ntp.org"	// Country and region specific
+#define NTP_TIMEZONES	-3					// How far is our Timezone from UTC (excl daylight saving/summer time)
 #define SECS_IN_HOUR	3600
 #define _NTP_INTR 0							// Do NTP processing with interrupts or in loop();
 
@@ -376,6 +376,10 @@
 //#	define _TTNSERVER "router.eu.thethings.network"
 //
 // TTN Version 3:
-#	define _TTNSERVER "eu1.cloud.thethings.network"	
-#	define _TTNPORT 1700							// Standard port for TTN
+#   if !defined _TTNSERVER
+#	    define _TTNSERVER "eu1.cloud.thethings.network"	
+#   endif //TTNSERVER
+#   if !defined _TTNPORT
+#	    define _TTNPORT 1700				// Standard port for TTN
+#   endif //TTNPORT
 #endif
