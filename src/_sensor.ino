@@ -513,7 +513,7 @@ int sensorPacket() {
 	
 	struct LoraUp LUP;
 	
-	LUP.sf = 8;											// Send with SF8
+	LUP.sf = _SPREADING;
 	LUP.prssi = -50;
 	LUP.rssicorr = 139;
 	LUP.snr = 0;
