@@ -393,7 +393,11 @@ struct LoraDown {
 	uint32_t	freq;						// Frequency
 	uint32_t	usec;						// Store the value of microseconds for later printing
 	
-	uint16_t	fcnt;						// Framecount of the requesting LoraUp message
+	#if _GATEWAYNODE==1
+	uint16_t	fcnt = 0;					// LoraDown framecount init 0
+	#else
+	uint16_t	fcnt;
+	#endif
 
 	uint8_t		size;
 	uint8_t		chan;						// = <NOT USED>
@@ -430,7 +434,11 @@ struct LoraUp {
 	uint8_t		chan;						// Channel "IF" used for RX
 	uint8_t		sf;							// Spreading Factor
 
+	#if _GATEWAYNODE==1
+	uint16_t	fcnt = 0;					// We write this to SPIFF file
+	#else
 	uint16_t	fcnt;
+	#endif
 	int32_t		snr;
 	int16_t		prssi; 
 	int16_t		rssicorr;

@@ -199,10 +199,10 @@ uint32_t fileTime = 0;										// Write the configuration to file
 #if _NTP_INTR==0
 	uint32_t ntptimer = 0;
 #endif
-#if _GATEWAYNODE==1
-	uint16_t LoraUp.fcnt = 0;								// We write this to SPIFF file
-	uint16_t LoraDown.fcnt = 0;								// LoraDown framecount init 0
-#endif
+// #if _GATEWAYNODE==1
+// 	uint16_t LoraUp.fcnt = 0;								// We write this to SPIFF file
+// 	uint16_t LoraDown.fcnt = 0;								// LoraDown framecount init 0
+// #endif
 #ifdef _PROFILER
 	uint32_t endTmst=0;
 #endif
@@ -312,7 +312,7 @@ void setup() {
 		init_oLED();										// When done display "STARTING" on Oled
 #	endif //_OLED
 
-#	if _GPS==1
+#	if _GPS==1 && defined(GPS_TX) && defined(GPS_RX)
 		// Pins are defined in LoRaModem.h together with other pins
 		sGps.begin(9600, SERIAL_8N1, GPS_TX, GPS_RX);		// PIN 12-TX 15-RX
 #	endif //_GPS
@@ -821,7 +821,7 @@ void loop ()
 		// message but we schedule it in the same frequency.
 		//
 #		if _GATEWAYNODE==1
-		if (gwayConfig.isNode) {
+        if (gwayConfig.isNode) {
 			// Give way to internal some Admin if necessary
 			yield();
 

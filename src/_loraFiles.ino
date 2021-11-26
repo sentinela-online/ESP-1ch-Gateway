@@ -134,8 +134,8 @@ int readGwayCfg(const char *fn, struct espGwayConfig *c)
 	(*c).boots++;										// Increment Boot Counter
 
 #	if _GATEWAYNODE==1
-		if (gwayConfig.fcnt != (uint8_t) 0) {
-			LoraUp.fcnt = gwayConfig.fcnt+10;			// Assume it is only 10 off
+		if (gwayConfig.u_fcnt != (uint8_t) 0) {
+			LoraUp.fcnt = gwayConfig.u_fcnt+10;			// Assume it is only 10 off
 		}
 #	endif //_GATEWAYNODE
 
