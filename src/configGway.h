@@ -87,7 +87,19 @@
 // AS923		(Not Used)
 // You can find the definitions in "loraModem.h" and frequencies in
 // See https://www.thethingsnetwork.org/docs/lorawan/frequency-plans.html
-// #define EU863_870 1
+#define EU863_870 0x0
+#define US902_928 0x1
+#define AU925_928 0x2
+#define CN470_510 0x3
+#define IN865_867 0x4
+#define CN779_787 0x5
+#define EU433 0x6
+#define KR920 0x7
+#define AS923 0x8
+
+#if !defined _FREQ_BAND
+#   define _FREQ_BAND EU863_870
+#endif //FREQ_BAND
  
 
 // Define the CLASS mode of the gateway

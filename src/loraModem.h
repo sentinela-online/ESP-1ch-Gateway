@@ -74,7 +74,7 @@ struct vector {
 
 // Define all the relevant LoRa Regions
 //=====================================
-#ifdef EU863_870
+#if _FREQ_BAND == EU863_870
 // This the the EU863_870 format as used in most of Europe
 // It is also the default for most of the single channel gateway work.
 // For each frequency SF7-SF12 are used.
@@ -92,7 +92,7 @@ vector freqs [] = {
 	// TTN defines an additional channel at 869.525 MHz using SF9 for class B. Not used
 };
 
-#elif defined(EU433)
+#elif _FREQ_BAND == EU433
 // The following 3 frequencies should be defined/used in an EU433 
 // environment. The plan is not defined for TTN yet so we use this one.
 vector freqs [] = {
@@ -107,7 +107,7 @@ vector freqs [] = {
 	{ 434775000, 125, 7, 12, 434775000, 125, 7, 12}				// Channel 8, 434.775 MHz primary
 };
 
-#elif defined(US902_928)
+#elif _FREQ_BAND == US902_928
 // The frequency plan for USA is a difficult one. As you can see, the uplink protocol uses
 // SF7-SF10 and BW125 whereas the downlink protocol uses SF7-SF12 and BW500.
 // Also the number of chanels is not equal.
@@ -124,7 +124,7 @@ vector freqs [] = {
 	{ 904600000, 500, 8,  8, 0        , 0,   0, 00},			// Up Ch 7, SF8BW5000, no Dwn 0 																						// SFxxxBW500
 };
 
-#elif defined(AU925_928)
+#elif _FREQ_BAND == AU925_928
 // Australian plan or TTN/Lora frequencies
 vector freqs [] = { 
 	{ 916800000, 125, 7, 10, 916800000, 125, 7, 12},			// Channel 0, 916.8 MHz primary
@@ -138,7 +138,7 @@ vector freqs [] = {
 	{ 917500000, 500, 8,  8,         0,   0, 0,  0}	  			// Channel 8, 917.5 SF8BW500 MHz Optional Uplink
 };
 
-#elif defined(CN470_510)
+#elif _FREQ_BAND == CN470_510
 // China plan for TTN frequencies
 vector freqs [] = { 
 	{ 486300000, 125, 7, 12, 486300000, 125, 7, 12},			// 486.3 - SF7BW125 to SF12BW125
@@ -151,7 +151,7 @@ vector freqs [] = {
 	{ 487700000, 125, 7, 12, 487700000, 125, 7, 12}				// 487.7 - SF7BW125 to SF12BW125
 };
 
-#elif defined(KR920)
+#elif _FREQ_BAND == KR920
 vector freqs [] = {
   { 922100000, 125, 7, 12, 922100000, 125,  7, 12},     //  SF7BW125 to SF12BW125
   { 922300000, 125, 7, 12, 922300000, 125,  7, 12},     //  SF7BW125 to SF12BW125
@@ -163,7 +163,7 @@ vector freqs [] = {
 
 };
 
-#elif defined(IN865_867)
+#elif _FREQ_BAND == IN865_867
 vector freqs [] = { 
 	{ 865062500, 125, 7, 12, 865062500, 125,  7, 12},			// And RX1
 	{ 865402500, 125, 7, 12, 865402500, 125,  7, 12},
