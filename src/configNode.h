@@ -98,6 +98,8 @@ struct wpas {
 // below. This is needed to get the gateway working
 //
 wpas wpa[] = {
+	_SSID,
+	_PASSWD
 };
 
 
