@@ -423,6 +423,7 @@ int readUdp(int packetSize)
 				String response = "v txLoraModem hi:: ";
 				printDwn(&LoraDown, response);
 				
+#			  if _LOCALSERVER>=1				
 				response += " datal=" + String(statr[0].datal);
 				response += " data= [ ";
 				for (int i=0; i< statr[0].datal; i++) {
@@ -430,6 +431,7 @@ int readUdp(int packetSize)
 				}
 				response += "]";
 				mPrint(response);
+#			  endif //_LOCALSERVER
 			
 				yield();
 				
