@@ -402,7 +402,7 @@ struct LoraDown {
 	uint8_t		size;
 	uint8_t		chan;						// = <NOT USED>
 	uint8_t		sf;							// through datr
-	uint8_t		bw;							// through datr
+	uint16_t	bw;							// through datr
 	
 	bool		ipol;
 	uint8_t		powe;						// transmit power == 14, except when using special channel
