@@ -439,7 +439,9 @@ void hop()
 // ----------------------------------------------------------------------------------------
 uint8_t receivePkt(uint8_t *payload)
 {
+#	if _STATISTICS>=1
     statc.msg_ttl++;													// Receive statistics counter
+#	endif //_STATISTICS
 
     uint8_t irqflags = readRegister(REG_IRQ_FLAGS);						// 0x12; read back flags											
 	uint8_t crcUsed  = readRegister(REG_HOP_CHANNEL);					// Is CRC used? (Register 0x1C)
@@ -482,12 +484,14 @@ uint8_t receivePkt(uint8_t *payload)
 	// If there are no error messages, read the buffer from the FIFO
 	// This means "Set FifoAddrPtr to FifoRxBaseAddr"
 	else {
+#		if _STATISTICS>=1
         statc.msg_ok++;													// Receive OK statistics counter
 		switch(statr[0].ch) {
 			case 0: statc.msg_ok_0++; break;
 			case 1: statc.msg_ok_1++; break;
 			case 2: statc.msg_ok_2++; break;
 		}
+#		endif //_STATISTICS
 
 		if (readRegister(REG_FIFO_RX_CURRENT_ADDR) != readRegister(REG_FIFO_RX_BASE_AD)) {
 #			if _MONITOR>=1

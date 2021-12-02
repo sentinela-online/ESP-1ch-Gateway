@@ -722,6 +722,7 @@ void pullData()
 } // pullData()
 
 
+#if _STATISTICS>=1
 // ---------------------------------- UP --------------------------------------
 // sendStat()
 // Send UP periodic status message to server even when we do not receive any
@@ -806,6 +807,7 @@ void sendStat()
 	return;
 
 } // sendStat()
+#endif //_STATISTICS
 
 
 #endif //_UDPROUTER

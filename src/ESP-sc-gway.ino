@@ -274,7 +274,9 @@ void stateMachine();													// _stateMachine.ino
 bool connectUdp();														// _udpSemtech.ino
 int readUdp(int packetSize);											// _udpSemtech.ino
 int sendUdp(IPAddress server, int port, uint8_t *msg, uint16_t length);	// _udpSemtech.ino
+#if _STATISTICS>=1
 void sendStat();														// _udpSemtech.ino
+#endif
 void pullData();														// _udpSemtech.ino
 
 #if _MUTEX==1
@@ -808,12 +810,14 @@ void loop ()
 	//	
     if ((nowSeconds - statTime) >= _STAT_INTERVAL) {		// Wake up every xx seconds
 		yield();											// on 26/12/2017
+#		if _STATISTICS>=1
         sendStat();											// Show the status message and send to server
 #		if _MONITOR>=1
 		if ((debug>=2) && (pdebug & P_MAIN)) {
 			mPrint("Send Pushdata sendStat");
 		}
 #		endif //_MONITOR
+#		endif //_STATISTICS
 
 		// If the gateway behaves like a node, we do from time to time
 		// send a node message to the backend server.

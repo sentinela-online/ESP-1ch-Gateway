@@ -836,8 +836,9 @@ static void statisticsData()
 		response +="<td class=\"cell\">" + String(statc.msg_down_0) + "</td>";
 		response +="<td class=\"cell\">" + String(statc.msg_down_1) + "</td>";
 		response +="<td class=\"cell\">" + String(statc.msg_down_2) + "</td>"; 
+#	elif _STATISTICS >= 1
+		response += "<td class=\"cell\">" + String(statc.msg_down) + "</td>";
 #	endif
-	response += "<td class=\"cell\">" + String(statc.msg_down) + "</td>";
 	response +="<td class=\"cell\"></td></tr>";
 		
 	response +="<tr><td class=\"cell\">Packages Uplink Total</td>";
@@ -845,9 +846,10 @@ static void statisticsData()
 		response +="<td class=\"cell\">" + String(statc.msg_ttl_0) + "</td>";
 		response +="<td class=\"cell\">" + String(statc.msg_ttl_1) + "</td>";
 		response +="<td class=\"cell\">" + String(statc.msg_ttl_2) + "</td>";
+#	elif _STATISTICS >= 1
+		response +="<td class=\"cell\">" + String(statc.msg_ttl) + "</td>";
+		response +="<td class=\"cell\">" + String((statc.msg_ttl*3600)/(now() - startTime)) + "</td></tr>";
 #	endif //_STATISTICS==3
-	response +="<td class=\"cell\">" + String(statc.msg_ttl) + "</td>";
-	response +="<td class=\"cell\">" + String((statc.msg_ttl*3600)/(now() - startTime)) + "</td></tr>";
 
 #	if _GATEWAYNODE==1
 		response +="<tr><td class=\"cell\">Packages Internal Sensor</td>";
@@ -855,9 +857,10 @@ static void statisticsData()
 			response +="<td class=\"cell\">" + String(statc.msg_sens_0) + "</td>";
 			response +="<td class=\"cell\">" + String(statc.msg_sens_1) + "</td>";
 			response +="<td class=\"cell\">" + String(statc.msg_sens_2) + "</td>";
+#		elif _STATISTICS >= 1
+			response +="<td class=\"cell\">" + String(statc.msg_sens) + "</td>";
+			response +="<td class=\"cell\">" + String((statc.msg_sens*3600)/(now() - startTime)) + "</td></tr>";
 #		endif //_STATISTICS==3
-		response +="<td class=\"cell\">" + String(statc.msg_sens) + "</td>";
-		response +="<td class=\"cell\">" + String((statc.msg_sens*3600)/(now() - startTime)) + "</td></tr>";
 #	endif //_GATEWAYNODE
 
 	response +="<tr><td class=\"cell\">Packages Uplink OK </td>";
@@ -865,9 +868,10 @@ static void statisticsData()
 		response +="<td class=\"cell\">" + String(statc.msg_ok_0) + "</td>";
 		response +="<td class=\"cell\">" + String(statc.msg_ok_1) + "</td>";
 		response +="<td class=\"cell\">" + String(statc.msg_ok_2) + "</td>";
+#	elif _STATISTICS >= 1
+		response +="<td class=\"cell\">" + String(statc.msg_ok) + "</td>";
+		response +="<td class=\"cell\">" + String((statc.msg_ok*3600)/(now() - startTime)) + "</td></tr>";
 #	endif //_STATISTICS==3
-	response +="<td class=\"cell\">" + String(statc.msg_ok) + "</td>";
-	response +="<td class=\"cell\">" + String((statc.msg_ok*3600)/(now() - startTime)) + "</td></tr>";
 		
 
 	// Provide a table with all the SF data including percentage of messsages
@@ -1589,10 +1593,12 @@ void setupWWW()
 		mPrint("RESET");
 		startTime= now() - 1;					// Reset all timers too (-1 to avoid division by 0)
 		
+#if _STATISTICS >= 1
 		statc.msg_ttl = 0;						// Reset ALL package statistics
 		statc.msg_ok = 0;
 		statc.msg_down = 0;
 		statc.msg_sens = 0;
+#endif
 		
 #if _STATISTICS >= 3
 		statc.msg_ttl_0 = 0;
@@ -1955,6 +1961,7 @@ void setupWWW()
 	// ----------------------------
 	//    SYSTEM STATUS PART    
 	// ---------------------------- 
+#	if _STATISTICS>=1
 	server.on("/MAXSTAT=-5", []() {
 		if (gwayConfig.maxStat>5) {
 			struct stat_t * oldStat = statr;
@@ -1984,6 +1991,7 @@ void setupWWW()
 		server.sendHeader("Location", String("/"), true);
 		server.send( 302, "text/plain", "");
 	});
+#	endif //_STATISTICS
 
 	server.on("/MAXSEEN-5", []() {
 		if (gwayConfig.maxSeen>5) {

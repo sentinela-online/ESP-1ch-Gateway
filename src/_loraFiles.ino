@@ -90,6 +90,7 @@ void initConfig(struct espGwayConfig *c)
 	(*c).logFileRec = 0;				// In new logFile start with record 0
 	(*c).logFileNo = 0;					// Increase file ID
 
+#	if _STATISTICS>=1
 	// Declarations that are dependent on the init settings
 	// The structure definitions below make it possible to dynamically size and resize the
 	// information in the GUI
@@ -104,6 +105,7 @@ void initConfig(struct espGwayConfig *c)
 		statr[i].ch=0;							// Channel index to freqs array
 		statr[i].sf=0;							// Init Spreading Factor
 	}
+#	endif //_STATISTICS
 
 	free(listSeen); delay(50);
 	listSeen = (struct nodeSeen *) malloc((*c).maxSeen * sizeof(struct nodeSeen));

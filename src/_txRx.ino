@@ -347,6 +347,7 @@ int sendPacket(uint8_t *buf, uint8_t len)
 #		endif //_MONITOR
 	}
 
+#	if _STATISTICS>=1
 	// Update downstream statistics
 	statc.msg_down++;
 	switch(statr[0].ch) {
@@ -354,6 +355,7 @@ int sendPacket(uint8_t *buf, uint8_t len)
 		case 1: statc.msg_down_1++; break;
 		case 2: statc.msg_down_2++; break;
 	}
+#	endif //_STATISTICS
 
 	// All data is in Payload and parameters and need to be transmitted.
 	// The function is called in user-space
